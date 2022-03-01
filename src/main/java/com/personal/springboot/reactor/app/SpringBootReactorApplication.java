@@ -24,8 +24,10 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
-		Flux<Usuario> usuarios = Flux.just("A 1", "C 2", "D 3", "E 4", "F 5", "A 11")
-				.map(u -> new Usuario(u.split(" ")[0].toUpperCase(), u.split(" ")[1].toUpperCase()))
+		Flux<String> nombres = Flux.just("A 1", "C 2", "D 3", "E 4", "F 5", "A 11");
+
+		Flux<Usuario> usuarios =
+				nombres.map(u -> new Usuario(u.split(" ")[0].toUpperCase(), u.split(" ")[1].toUpperCase()))
 				.filter(u -> u.getNombre().equals("A"))
 				.doOnNext(
 						elemento -> {
